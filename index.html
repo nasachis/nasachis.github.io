@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ana Besa Sanchis — Ingeniera Industrial</title>
+  <meta name="description" content="Portfolio de Ana Besa Sanchis — Ingeniera en Tecnologías Industriales especializada en gestión de calidad, diseño CAD y procesos industriales." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Design Tokens ─────────────────────────────────────────────────── */
+    :root {
+      --clr-bg:          #F9F8F4;
+      --clr-fg:          #2D3A31;
+      --clr-primary:     #8C9A84;
+      --clr-secondary:   #DCCFC2;
+      --clr-border:      #E6E2DA;
+      --clr-interactive: #C27B66;
+      --clr-card:        #FFFFFF;
+      --clr-card-alt:    #F2F0EB;
+      --clr-muted:       #7A8A7F;
+
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans:  'Source Sans 3', system-ui, sans-serif;
+
+      --radius-card: 24px;
+      --radius-pill: 9999px;
+      --radius-img:  40px;
+
+      --shadow-sm: 0 4px 6px -1px rgba(45,58,49,0.05);
+      --shadow-md: 0 10px 15px -3px rgba(45,58,49,0.07);
+      --shadow-lg: 0 20px 40px -10px rgba(45,58,49,0.10);
+      --shadow-xl: 0 25px 50px -12px rgba(45,58,49,0.15);
+
+      --transition-fast: all 0.3s ease-out;
+      --transition-std:  all 0.5s ease-out;
+      --transition-slow: all 0.7s ease-out;
+    }
+
+    /* ─── Reset & Base ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--clr-bg);
+      color: var(--clr-fg);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* Grain Overlay */
+    #grain {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      opacity: 0.018;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+    }
+
+    /* ─── Typography ────────────────────────────────────────────────────── */
+    h1, h2, h3, h4 {
+      font-family: var(--font-serif);
+      color: var(--clr-fg);
+      line-height: 1.15;
+    }
+
+    p { color: var(--clr-fg); }
+    a { color: inherit; text-decoration: none; }
+
+    .label {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--clr-primary);
+    }
+
+    /* ─── Layout ────────────────────────────────────────────────────────── */
+    .container {
+      max-width: 1200px;
+      margin-inline: auto;
+      padding-inline: 2rem;
+    }
+
+    section { padding-block: 7rem; }
+
+    .section-header { margin-bottom: 4rem; }
+    .section-header .label { margin-bottom: 0.75rem; display: block; }
+    .section-header h2 { font-size: clamp(2.2rem, 4vw, 3.2rem); max-width: 28ch; }
+    .section-header h2 em { font-style: italic; color: var(--clr-primary); }
+
+    /* ─── Scroll Reveal ─────────────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* ─── Navigation ────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 0;
+      transition: var(--transition-fast);
+    }
+
+    nav.scrolled {
+      background-color: rgba(249,248,244,0.90);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 1rem 0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--clr-fg);
+      letter-spacing: -0.01em;
+    }
+    .nav-logo span { color: var(--clr-primary); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--clr-muted);
+      transition: var(--transition-fast);
+    }
+    .nav-links a:hover { color: var(--clr-fg); }
+
+    .nav-cta {
+      background: var(--clr-fg);
+      color: var(--clr-bg) !important;
+      padding: 0.6rem 1.4rem;
+      border-radius: var(--radius-pill);
+      font-weight: 600 !important;
+      transition: var(--transition-fast) !important;
+    }
+    .nav-cta:hover { background: var(--clr-interactive) !important; color: white !important; }
+
+    /* ─── Language Toggle ───────────────────────────────────────────────── */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.15rem;
+      background: transparent;
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-pill);
+      padding: 0.35rem 0.9rem;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--clr-muted);
+      transition: var(--transition-fast);
+      flex-shrink: 0;
+    }
+    .lang-toggle:hover { border-color: var(--clr-primary); color: var(--clr-fg); }
+    .lang-opt { transition: color 0.25s; }
+    .lang-opt.active { color: var(--clr-fg); }
+    .lang-divider { opacity: 0.25; font-weight: 300; margin: 0 0.15rem; font-size: 0.65rem; }
+
+    /* Nav controls (lang toggle + hamburger) */
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Hamburger */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--clr-fg);
+      transition: var(--transition-fast);
+    }
+
+    /* Mobile Nav Drawer */
+    .nav-drawer {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--clr-bg);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .nav-drawer.open { display: flex; opacity: 1; transform: translateY(0); }
+    .nav-drawer a { font-family: var(--font-serif); font-size: 2rem; color: var(--clr-fg); }
+    .nav-drawer-close {
+      position: absolute;
+      top: 1.5rem; right: 2rem;
+      font-size: 1.5rem;
+      background: none; border: none;
+      color: var(--clr-fg); cursor: pointer;
+    }
+
+    /* ─── Hero ──────────────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 8rem;
+      padding-bottom: 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -10%; right: -8%;
+      width: 55vw; height: 55vw;
+      max-width: 700px; max-height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, var(--clr-secondary) 0%, transparent 70%);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-text .label { margin-bottom: 1.25rem; display: block; }
+    .hero-text h1 {
+      font-size: clamp(3rem, 5.5vw, 5.5rem);
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+    .hero-text h1 em { font-style: italic; color: var(--clr-primary); }
+    .hero-text p {
+      font-size: 1.15rem;
+      color: var(--clr-muted);
+      max-width: 44ch;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--clr-fg);
+      color: var(--clr-bg);
+      padding: 0.85rem 2rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-primary:hover { background: var(--clr-interactive); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--clr-primary);
+      padding: 0.85rem 2rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid var(--clr-primary);
+      transition: var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-secondary:hover { background: var(--clr-primary); color: white; transform: translateY(-2px); }
+
+    .hero-visual { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+
+    .hero-arch {
+      width: 100%; max-width: 340px;
+      aspect-ratio: 3/4;
+      border-radius: 200px 200px 24px 24px;
+      background: linear-gradient(160deg, var(--clr-secondary) 0%, var(--clr-primary) 100%);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+    }
+    .hero-arch-inner {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.5rem;
+    }
+    .hero-monogram {
+      font-family: var(--font-serif);
+      font-size: 6rem; font-weight: 700;
+      color: rgba(255,255,255,0.55);
+      line-height: 1; letter-spacing: -0.04em;
+    }
+    .hero-arch-deco {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 40%; opacity: 0.18;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%; max-width: 340px;
+    }
+    .hero-stat-card {
+      background: var(--clr-card);
+      border-radius: var(--radius-card);
+      padding: 1.2rem 1.4rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--clr-border);
+    }
+    .hero-stat-num {
+      font-family: var(--font-serif);
+      font-size: 1.8rem; font-weight: 700;
+      color: var(--clr-fg); line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+    .hero-stat-label {
+      font-size: 0.72rem; color: var(--clr-muted);
+      font-weight: 500; letter-spacing: 0.05em;
+    }
+
+    .vine-divider {
+      width: 100%;
+      display: flex; justify-content: center;
+      padding-block: 0.5rem; opacity: 0.3;
+    }
+
+    /* ─── About ─────────────────────────────────────────────────────────── */
+    #about { background: var(--clr-card-alt); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem; align-items: start;
+    }
+    .about-aside { position: sticky; top: 7rem; }
+    .about-tag-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+    .tag {
+      background: var(--clr-secondary); color: var(--clr-fg);
+      padding: 0.4rem 1rem; border-radius: var(--radius-pill);
+      font-size: 0.78rem; font-weight: 500;
+    }
+    .tag.accent { background: var(--clr-primary); color: white; }
+
+    .about-body p {
+      font-size: 1.1rem; color: var(--clr-muted);
+      line-height: 1.9; margin-bottom: 1.5rem;
+    }
+    .about-body strong { color: var(--clr-fg); font-weight: 600; }
+
+    .about-pull-quote {
+      border-left: 2px solid var(--clr-primary);
+      padding-left: 1.5rem; margin-block: 2rem;
+    }
+    .about-pull-quote blockquote {
+      font-family: var(--font-serif);
+      font-style: italic; font-size: 1.3rem;
+      color: var(--clr-fg); line-height: 1.6;
+    }
+
+    /* ─── Experience ────────────────────────────────────────────────────── */
+    #experience { background: var(--clr-bg); }
+
+    .exp-card {
+      background: var(--clr-card);
+      border-radius: var(--radius-card);
+      padding: 2.5rem 3rem;
+      border: 1px solid var(--clr-border);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-std);
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 3rem;
+    }
+    .exp-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); }
+
+    .exp-meta .company {
+      font-family: var(--font-serif);
+      font-size: 1.5rem; font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .exp-meta .position {
+      font-size: 0.9rem; color: var(--clr-primary);
+      font-weight: 600; margin-bottom: 0.6rem;
+    }
+    .exp-meta .period {
+      font-size: 0.78rem; color: var(--clr-muted);
+      letter-spacing: 0.05em;
+    }
+    .exp-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%; background: var(--clr-primary);
+      margin-right: 0.5rem; vertical-align: middle;
+    }
+
+    .exp-highlights {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .exp-highlights li {
+      position: relative;
+      padding-left: 1.5rem;
+      font-size: 0.95rem; color: var(--clr-muted); line-height: 1.7;
+    }
+    .exp-highlights li::before {
+      content: '→'; color: var(--clr-primary);
+      position: absolute; left: 0; top: 0.05rem;
+    }
+    .exp-highlights strong { color: var(--clr-fg); font-weight: 600; }
+
+    /* ─── Projects ──────────────────────────────────────────────────────── */
+    #projects { background: var(--clr-card-alt); }
+
+    .project-card {
+      background: var(--clr-card);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--clr-border);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: var(--transition-std);
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .project-visual {
+      background: linear-gradient(160deg, var(--clr-secondary) 0%, var(--clr-primary) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 3rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40,80 Q80,20 120,80 Q160,140 200,80' stroke='white' stroke-width='1' fill='none' opacity='0.15'/%3E%3Cpath d='M0,100 Q40,40 80,100 Q120,160 160,100 Q180,80 200,100' stroke='white' stroke-width='1' fill='none' opacity='0.1'/%3E%3C/svg%3E") center/cover;
+      pointer-events: none;
+    }
+
+    .project-badge {
+      font-family: var(--font-sans);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.15);
+      padding: 0.3rem 0.9rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255,255,255,0.2);
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-visual-icon {
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-visual-icon svg {
+      width: 64px;
+      height: 64px;
+      stroke: rgba(255,255,255,0.6);
+      stroke-width: 1;
+      fill: none;
+    }
+
+    .project-body {
+      padding: 2.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .project-body h3 {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-body .project-subtitle {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--clr-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+
+    .project-body p {
+      font-size: 0.95rem;
+      color: var(--clr-muted);
+      line-height: 1.8;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-tag {
+      background: var(--clr-card-alt);
+      color: var(--clr-muted);
+      padding: 0.3rem 0.85rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.73rem;
+      font-weight: 500;
+      border: 1px solid var(--clr-border);
+    }
+
+    .project-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--clr-border);
+    }
+
+    .project-meta {
+      font-size: 0.78rem;
+      color: var(--clr-muted);
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--clr-interactive);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: var(--transition-fast);
+    }
+
+    .project-link:hover {
+      color: var(--clr-fg);
+      gap: 0.65rem;
+    }
+
+    .project-link svg {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 900px) {
+      .project-card { grid-template-columns: 1fr; }
+      .project-visual { padding: 2.5rem; min-height: 200px; }
+      .project-body { padding: 2rem; }
+    }
+
+    /* ─── Skills ────────────────────────────────────────────────────────── */
+    #skills { background: var(--clr-bg); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .skill-card {
+      background: var(--clr-card);
+      border-radius: var(--radius-card);
+      padding: 2rem 2.25rem;
+      border: 1px solid var(--clr-border);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-std);
+    }
+    .skill-card:nth-child(even) { transform: translateY(1.5rem); }
+    .skill-card:hover { transform: translateY(-4px) !important; box-shadow: var(--shadow-xl); }
+
+    .skill-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--clr-card-alt);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .skill-icon svg {
+      width: 20px; height: 20px;
+      stroke: var(--clr-primary); stroke-width: 1.5; fill: none;
+    }
+    .skill-card h3 { font-family: var(--font-serif); font-size: 1.15rem; margin-bottom: 1rem; }
+
+    .skill-keywords { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skill-kw {
+      background: var(--clr-card-alt); color: var(--clr-muted);
+      padding: 0.3rem 0.85rem; border-radius: var(--radius-pill);
+      font-size: 0.75rem; font-weight: 500;
+      border: 1px solid var(--clr-border);
+    }
+
+    /* ─── Education ─────────────────────────────────────────────────────── */
+    #education { background: var(--clr-bg); }
+
+    .education-list { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .edu-card {
+      background: var(--clr-card);
+      border-radius: var(--radius-card);
+      padding: 2rem 2.5rem;
+      border: 1px solid var(--clr-border);
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2rem; align-items: start;
+      transition: var(--transition-std);
+    }
+    .edu-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+
+    .edu-year-block {
+      background: var(--clr-card-alt);
+      border-radius: 16px;
+      padding: 0.75rem 1.1rem;
+      text-align: center; min-width: 80px;
+      border: 1px solid var(--clr-border);
+    }
+    .edu-year {
+      font-family: var(--font-serif);
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--clr-fg); line-height: 1;
+    }
+    .edu-year-label {
+      font-size: 0.65rem; color: var(--clr-muted);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.2rem;
+    }
+
+    .edu-info h3 { font-family: var(--font-serif); font-size: 1.25rem; margin-bottom: 0.3rem; }
+    .edu-info .degree { font-size: 0.88rem; color: var(--clr-primary); font-weight: 600; margin-bottom: 0.4rem; }
+    .edu-info .institution { font-size: 0.85rem; color: var(--clr-muted); }
+
+    .edu-status {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(140,154,132,0.12); color: var(--clr-primary);
+      padding: 0.25rem 0.8rem; border-radius: var(--radius-pill);
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.05em; text-transform: uppercase; margin-top: 0.6rem;
+    }
+    .pulse-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--clr-primary);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    /* ─── Awards ────────────────────────────────────────────────────────── */
+    #awards { background: var(--clr-fg); }
+    #awards .label { color: var(--clr-primary); }
+    #awards h2 { color: var(--clr-bg); }
+    #awards h2 em { color: var(--clr-primary); }
+
+    .awards-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .award-card {
+      background: rgba(249,248,244,0.07);
+      border: 1px solid rgba(249,248,244,0.12);
+      border-radius: var(--radius-card); padding: 2rem 2.25rem;
+      transition: var(--transition-std);
+    }
+    .award-card:hover { background: rgba(249,248,244,0.12); transform: translateY(-4px); }
+    .award-icon { font-size: 1.75rem; margin-bottom: 1rem; }
+    .award-card h3 {
+      font-family: var(--font-serif); font-size: 1.15rem;
+      color: var(--clr-bg); margin-bottom: 0.4rem; line-height: 1.35;
+    }
+    .award-card .awarder {
+      font-size: 0.82rem; color: var(--clr-primary);
+      font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.08em; margin-bottom: 0.5rem;
+    }
+    .award-card .summary { font-size: 0.88rem; color: rgba(249,248,244,0.6); line-height: 1.7; }
+
+    .certs-strip {
+      margin-top: 4rem; padding-top: 3rem;
+      border-top: 1px solid rgba(249,248,244,0.1);
+    }
+    .certs-strip .label { margin-bottom: 1.5rem; display: block; }
+    .certs-row { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+    .cert-pill {
+      background: rgba(249,248,244,0.08);
+      border: 1px solid rgba(249,248,244,0.15);
+      color: rgba(249,248,244,0.85);
+      padding: 0.6rem 1.4rem; border-radius: var(--radius-pill);
+      font-size: 0.82rem; font-weight: 500;
+      display: flex; align-items: center; gap: 0.5rem;
+      transition: var(--transition-fast);
+    }
+    .cert-pill:hover { background: rgba(249,248,244,0.15); }
+    .cert-pill-icon { color: var(--clr-primary); font-size: 0.9rem; }
+    .cert-date { color: rgba(249,248,244,0.4); font-size: 0.7rem; margin-left: 0.25rem; }
+
+    /* ─── Languages ─────────────────────────────────────────────────────── */
+    #languages { background: var(--clr-bg); }
+
+    .lang-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .lang-card {
+      background: var(--clr-card); border-radius: var(--radius-card);
+      padding: 2rem; border: 1px solid var(--clr-border);
+      box-shadow: var(--shadow-sm); text-align: center;
+      transition: var(--transition-std);
+    }
+    .lang-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .lang-flag { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .lang-card h3 { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 0.4rem; }
+    .lang-level { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--clr-primary); }
+    .lang-bar-track {
+      margin-top: 1rem; height: 4px;
+      border-radius: 9999px; background: var(--clr-border); overflow: hidden;
+    }
+    .lang-bar-fill {
+      height: 100%; border-radius: 9999px;
+      background: linear-gradient(90deg, var(--clr-primary), var(--clr-interactive));
+      transform-origin: left; transform: scaleX(0);
+      transition: transform 1s ease-out;
+    }
+
+    /* ─── Contact ───────────────────────────────────────────────────────── */
+    #contact { background: var(--clr-card-alt); padding-block: 6rem; text-align: center; }
+    .contact-inner { max-width: 600px; margin-inline: auto; }
+    #contact h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.25rem; }
+    #contact h2 em { font-style: italic; color: var(--clr-primary); }
+    #contact p { color: var(--clr-muted); font-size: 1.05rem; margin-bottom: 2.5rem; line-height: 1.8; }
+
+    .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.85rem 1.8rem; border-radius: var(--radius-pill);
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; transition: var(--transition-fast);
+    }
+    .contact-link.primary { background: var(--clr-fg); color: var(--clr-bg); }
+    .contact-link.primary:hover { background: var(--clr-interactive); transform: translateY(-2px); }
+    .contact-link.outline { border: 1px solid var(--clr-fg); color: var(--clr-fg); }
+    .contact-link.outline:hover { background: var(--clr-fg); color: var(--clr-bg); transform: translateY(-2px); }
+
+    /* ─── Footer ────────────────────────────────────────────────────────── */
+    footer { background: var(--clr-fg); padding: 2rem 0; text-align: center; }
+    footer p { color: rgba(249,248,244,0.4); font-size: 0.8rem; }
+    footer span { color: var(--clr-primary); }
+
+    /* ─── Responsive ────────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      section { padding-block: 5rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-visual { order: -1; flex-direction: row; justify-content: center; align-items: flex-end; }
+      .hero-arch { max-width: 200px; }
+      .hero-monogram { font-size: 4rem; }
+      .hero-stats { max-width: 220px; }
+      .hero-stat-num { font-size: 1.4rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-aside { position: static; }
+      .exp-card { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.75rem 2rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .skill-card:nth-child(even) { transform: none; }
+      .awards-grid { grid-template-columns: 1fr; }
+      .lang-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
+    @media (max-width: 600px) {
+      .container { padding-inline: 1.25rem; }
+      section { padding-block: 4rem; }
+      .hero-text h1 { font-size: 2.5rem; }
+      .edu-card { grid-template-columns: 1fr; gap: 1rem; }
+      .edu-year-block { max-width: 90px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="grain" aria-hidden="true"></div>
+
+  <!-- ── Navigation ──────────────────────────────────────────────────────── -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a href="#hero" class="nav-logo">Ana<span>.</span></a>
+
+      <ul class="nav-links">
+        <li><a href="#about"      data-i18n="nav.about">Sobre Mí</a></li>
+        <li><a href="#experience" data-i18n="nav.experience">Experiencia</a></li>
+        <li><a href="#projects"   data-i18n="nav.projects">Proyectos</a></li>
+        <li><a href="#skills"     data-i18n="nav.skills">Habilidades</a></li>
+        <li><a href="#education"  data-i18n="nav.education">Formación</a></li>
+        <li><a href="#contact" class="nav-cta" data-i18n="nav.contact">Contacto</a></li>
+      </ul>
+
+      <div class="nav-controls">
+        <!-- Language Toggle: always visible on both desktop and mobile -->
+        <button class="lang-toggle" id="langToggle" aria-label="Cambiar idioma / Switch language">
+          <span class="lang-opt active" data-lang="es">ES</span>
+          <span class="lang-divider">|</span>
+          <span class="lang-opt" data-lang="en">EN</span>
+        </button>
+        <button class="nav-hamburger" aria-label="Abrir menú" id="hamburger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div class="nav-drawer" id="navDrawer" role="dialog" aria-modal="true">
+    <button class="nav-drawer-close" id="drawerClose" aria-label="Cerrar menú">✕</button>
+    <a href="#about"      onclick="closeDrawer()" data-i18n="nav.about">Sobre Mí</a>
+    <a href="#experience" onclick="closeDrawer()" data-i18n="nav.experience">Experiencia</a>
+    <a href="#projects"   onclick="closeDrawer()" data-i18n="nav.projects">Proyectos</a>
+    <a href="#skills"     onclick="closeDrawer()" data-i18n="nav.skills">Habilidades</a>
+    <a href="#education"  onclick="closeDrawer()" data-i18n="nav.education">Formación</a>
+    <a href="#awards"     onclick="closeDrawer()" data-i18n="nav.awards">Premios</a>
+    <a href="#contact"    onclick="closeDrawer()" data-i18n="nav.contact">Contacto</a>
+  </div>
+
+  <!-- ── Hero ────────────────────────────────────────────────────────────── -->
+  <section id="hero" aria-labelledby="hero-heading">
+    <div class="container">
+      <div class="hero-inner">
+
+        <div class="hero-text">
+          <span class="label reveal" data-i18n="hero.label">Ingeniera Industrial · Valencia, España</span>
+          <h1 id="hero-heading" class="reveal reveal-delay-1" data-i18n-html="hero.h1">
+            Ana<br /><em>Besa</em><br />Sanchis
+          </h1>
+          <p class="reveal reveal-delay-2" data-i18n="hero.p">
+            Candidata al Máster en Ingeniería Industrial en la UPV, con experiencia práctica en gestión de calidad, estandarización de procesos y diseño CAD de precisión. Apasionada por la intersección entre el rigor técnico y la práctica industrial sostenible.
+          </p>
+          <div class="hero-btns reveal reveal-delay-3">
+            <a href="#experience" class="btn-primary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <span data-i18n="hero.btn.primary">Ver Mi Trabajo</span>
+            </a>
+            <a href="https://www.linkedin.com/in/ana-besa-sanchis" target="_blank" rel="noopener noreferrer" class="btn-secondary">LinkedIn</a>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal reveal-delay-2">
+          <div class="hero-arch" role="img" aria-label="Monograma AB">
+            <div class="hero-arch-inner">
+              <div class="hero-monogram">AB</div>
+            </div>
+            <svg class="hero-arch-deco" viewBox="0 0 300 120" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M0,120 Q50,60 100,80 Q130,90 150,60 Q170,30 200,70 Q230,100 270,50 Q290,30 300,40 L300,120 Z"/>
+              <ellipse cx="80" cy="75" rx="15" ry="8" transform="rotate(-20 80 75)"/>
+              <ellipse cx="150" cy="55" rx="12" ry="6" transform="rotate(15 150 55)"/>
+              <ellipse cx="230" cy="65" rx="13" ry="7" transform="rotate(-10 230 65)"/>
+            </svg>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat-card">
+              <div class="hero-stat-num">6+</div>
+              <div class="hero-stat-label" data-i18n="hero.stat.study">Años de Estudio</div>
+            </div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-num">10<span style="font-size:1rem">mo</span></div>
+              <div class="hero-stat-label" data-i18n="hero.stat.exp">Exp. Industrial</div>
+            </div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-num">3</div>
+              <div class="hero-stat-label" data-i18n="hero.stat.lang">Idiomas</div>
+            </div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-num">2</div>
+              <div class="hero-stat-label" data-i18n="hero.stat.awards">Premios</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="vine-divider" aria-hidden="true">
+    <svg width="600" height="24" viewBox="0 0 600 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,12 Q75,4 150,12 Q225,20 300,12 Q375,4 450,12 Q525,20 600,12" stroke="#8C9A84" stroke-width="1" fill="none"/>
+      <circle cx="150" cy="12" r="3" fill="#8C9A84"/>
+      <circle cx="300" cy="12" r="3" fill="#8C9A84"/>
+      <circle cx="450" cy="12" r="3" fill="#8C9A84"/>
+    </svg>
+  </div>
+
+  <!-- ── About ────────────────────────────────────────────────────────────── -->
+  <section id="about" aria-labelledby="about-heading">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-aside">
+          <span class="label reveal" data-i18n="about.label">Quién Soy</span>
+          <h2 id="about-heading" class="reveal reveal-delay-1"
+            style="font-size:clamp(2rem,3.5vw,2.8rem);margin-top:0.5rem;margin-bottom:1.5rem;"
+            data-i18n-html="about.h2">
+            Ingeniería con <em>propósito</em> y precisión
+          </h2>
+          <div class="about-tag-row reveal reveal-delay-2">
+            <span class="tag accent" data-i18n="about.tag1">Gestión de Calidad</span>
+            <span class="tag" data-i18n="about.tag2">Diseño CAD</span>
+            <span class="tag" data-i18n="about.tag3">Ing. de Procesos</span>
+            <span class="tag" data-i18n="about.tag4">Elaboración de SOPs</span>
+            <span class="tag" data-i18n="about.tag5">Análisis de Datos</span>
+          </div>
+        </div>
+        <div class="about-body">
+          <p class="reveal" data-i18n-html="about.p1">
+            Soy estudiante de último curso del <strong>Máster en Ingeniería Industrial</strong> en la Universitat Politècnica de València — una de las principales universidades técnicas de España. Mi trayectoria académica, de más de seis años, me ha proporcionado una sólida base en procesos industriales, sistemas mecánicos y toma de decisiones basada en datos.
+          </p>
+          <div class="about-pull-quote reveal reveal-delay-1">
+            <blockquote data-i18n="about.quote">
+              "La precisión en el proceso es el motor silencioso que impulsa la calidad sostenible."
+            </blockquote>
+          </div>
+          <p class="reveal reveal-delay-2" data-i18n-html="about.p2">
+            Durante mis prácticas en <strong>Hofmann</strong>, contribuí directamente al sistema de aseguramiento de la calidad — redactando SOPs, dirigiendo auditorías sistémicas de planta y coordinando la armonización de productos con subsidiarias internacionales. Esta experiencia me enseñó cómo la <strong>documentación rigurosa y la estandarización</strong> se traducen en resiliencia operacional real.
+          </p>
+          <p class="reveal reveal-delay-3" data-i18n-html="about.p3">
+            Más allá de la práctica ingenieril, aporto sólidas habilidades de modelado 3D en <strong>SolidWorks, AutoCAD y Blender</strong>, un enfoque metódico para el análisis de datos y una mentalidad colaborativa y orientada a soluciones, forjada durante años de trabajo académico en equipo. Me desenvuelvo bien en entornos que valoran tanto la profundidad técnica como la resolución creativa de problemas.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Experience ───────────────────────────────────────────────────────── -->
+  <section id="experience" aria-labelledby="experience-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="label reveal" data-i18n="exp.label">Carrera</span>
+        <h2 id="experience-heading" class="reveal reveal-delay-1" data-i18n-html="exp.h2">Experiencia <em>Profesional</em></h2>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-meta">
+          <div class="company">Hofmann</div>
+          <div class="position" data-i18n="exp.position">Prácticas — Analista de Calidad</div>
+          <div class="period">
+            <span class="exp-dot"></span>
+            <span data-i18n="exp.period">Oct 2023 — Ago 2024 · 10 meses</span>
+          </div>
+          <div style="margin-top:1rem;">
+            <span class="tag" style="font-size:0.72rem;" data-i18n="exp.tag">Aseguramiento de Calidad</span>
+          </div>
+        </div>
+        <ul class="exp-highlights">
+          <li data-i18n-html="exp.li1"><strong>Redacción y mantenimiento de Procedimientos Operativos Estándar (SOPs)</strong> para el lanzamiento de nuevos productos, reduciendo tiempos de incorporación y garantizando el cumplimiento normativo en las líneas de producción.</li>
+          <li data-i18n-html="exp.li2"><strong>Liderazgo de la armonización de productos entre empresas del grupo</strong>, coordinando con subsidiarias internacionales para mejorar la coherencia de los estándares de calidad en toda la cartera.</li>
+          <li data-i18n-html="exp.li3">Desarrollo integral de <strong>documentación para nuevos proyectos</strong>, desde borradores iniciales hasta la aprobación final, optimizando los ciclos de revisión.</li>
+          <li data-i18n-html="exp.li4"><strong>Gestión y actualización del muestrario de calidad</strong>, garantizando la trazabilidad completa del producto y la disponibilidad para auditorías en todo momento.</li>
+          <li data-i18n-html="exp.li5">Planificación y ejecución de <strong>auditorías sistémicas de planta</strong>, identificando desviaciones en los procesos e impulsando acciones correctivas para fortalecer el sistema de gestión de calidad.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Projects ────────────────────────────────────────────────────────── -->
+  <section id="projects" aria-labelledby="projects-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="label reveal" data-i18n="projects.label">Investigación Académica</span>
+        <h2 id="projects-heading" class="reveal reveal-delay-1" data-i18n-html="projects.h2">Trabajo <em>Final</em> de Grado</h2>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-visual">
+          <span class="project-badge" data-i18n="projects.badge">Trabajo Fin de Grado · UPV · 2024</span>
+          <div class="project-visual-icon" aria-hidden="true">
+            <!-- Robot arm icon -->
+            <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+              <rect x="36" y="60" width="8" height="14" rx="2"/>
+              <rect x="28" y="54" width="24" height="10" rx="3"/>
+              <line x1="40" y1="54" x2="40" y2="40"/>
+              <line x1="40" y1="40" x2="56" y2="26"/>
+              <circle cx="40" cy="40" r="4"/>
+              <circle cx="56" cy="26" r="4"/>
+              <line x1="56" y1="26" x2="64" y2="14"/>
+              <circle cx="64" cy="14" r="5"/>
+              <circle cx="40" cy="68" r="3"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="project-body">
+          <div>
+            <h3 data-i18n="projects.p1.title">Modelado y Análisis de una Línea Robotizada para la Producción de Álbumes Fotográficos</h3>
+            <div class="project-subtitle" data-i18n="projects.p1.subtitle">RobotStudio · ABB · Simulación Industrial</div>
+            <p data-i18n="projects.p1.desc">
+              Desarrollo de un modelo virtual de una línea de producción en RobotStudio para comparar la eficiencia de una línea semimanual frente a una automatizada con robot industrial ABB. Se analizaron dos escenarios en términos de tiempo de ciclo y coste de producción, demostrando la viabilidad técnica y económica de la automatización a medio plazo.
+            </p>
+          </div>
+
+          <div class="project-tags">
+            <span class="project-tag">RobotStudio</span>
+            <span class="project-tag" data-i18n="projects.p1.tag1">Robótica Industrial</span>
+            <span class="project-tag" data-i18n="projects.p1.tag2">Automatización</span>
+            <span class="project-tag" data-i18n="projects.p1.tag3">Simulación de Procesos</span>
+            <span class="project-tag" data-i18n="projects.p1.tag4">Análisis Coste-Beneficio</span>
+          </div>
+
+          <div class="project-footer">
+            <span class="project-meta" data-i18n="projects.p1.meta">Universitat Politècnica de València · 2024</span>
+            <a href="https://riunet.upv.es/server/api/core/bitstreams/6b3b1f25-4950-4e4e-a2ad-bd9e6ee9553c/content"
+               target="_blank" rel="noopener noreferrer" class="project-link">
+              <span data-i18n="projects.p1.cta">Leer el Trabajo</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Skills ───────────────────────────────────────────────────────────── -->
+  <section id="skills" aria-labelledby="skills-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="label reveal" data-i18n="skills.label">Conocimientos</span>
+        <h2 id="skills-heading" class="reveal reveal-delay-1" data-i18n-html="skills.h2">Habilidades <em>Principales</em></h2>
+      </div>
+      <div class="skills-grid">
+
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 data-i18n="skills.cat1">Gestión de Calidad</h3>
+          <div class="skill-keywords">
+            <span class="skill-kw" data-i18n="skills.cat1.k1">Sistemas de Calidad</span>
+            <span class="skill-kw" data-i18n="skills.cat1.k2">Control Documental</span>
+            <span class="skill-kw" data-i18n="skills.cat1.k3">Elaboración de SOPs</span>
+            <span class="skill-kw" data-i18n="skills.cat1.k4">Estandarización</span>
+            <span class="skill-kw" data-i18n="skills.cat1.k5">Auditorías de Planta</span>
+          </div>
+        </div>
+
+        <div class="skill-card reveal reveal-delay-1">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <h3 data-i18n="skills.cat2">Ingeniería y Diseño CAD</h3>
+          <div class="skill-keywords">
+            <span class="skill-kw">SolidWorks</span>
+            <span class="skill-kw">AutoCAD</span>
+            <span class="skill-kw">Autodesk Inventor</span>
+            <span class="skill-kw">Blender</span>
+            <span class="skill-kw" data-i18n="skills.cat2.k5">Modelado 3D</span>
+          </div>
+        </div>
+
+        <div class="skill-card reveal reveal-delay-2">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
+          </div>
+          <h3 data-i18n="skills.cat3">Análisis de Datos</h3>
+          <div class="skill-keywords">
+            <span class="skill-kw">MATLAB</span>
+            <span class="skill-kw" data-i18n="skills.cat3.k2">Excel (Avanzado)</span>
+            <span class="skill-kw" data-i18n="skills.cat3.k3">Visualización de Datos</span>
+            <span class="skill-kw" data-i18n="skills.cat3.k4">Informes</span>
+          </div>
+        </div>
+
+        <div class="skill-card reveal reveal-delay-3">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3 data-i18n="skills.cat4">Habilidades Profesionales</h3>
+          <div class="skill-keywords">
+            <span class="skill-kw" data-i18n="skills.cat4.k1">Resolución de Problemas</span>
+            <span class="skill-kw" data-i18n="skills.cat4.k2">Trabajo en Equipo</span>
+            <span class="skill-kw" data-i18n="skills.cat4.k3">Organización</span>
+            <span class="skill-kw" data-i18n="skills.cat4.k4">Responsabilidad</span>
+            <span class="skill-kw" data-i18n="skills.cat4.k5">Adaptabilidad</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Education ────────────────────────────────────────────────────────── -->
+  <section id="education" aria-labelledby="education-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="label reveal" data-i18n="edu.label">Formación Académica</span>
+        <h2 id="education-heading" class="reveal reveal-delay-1" data-i18n-html="edu.h2"><em>Educación</em></h2>
+      </div>
+      <div class="education-list">
+
+        <div class="edu-card reveal">
+          <div class="edu-year-block">
+            <div class="edu-year">2024</div>
+            <div class="edu-year-label" data-i18n="edu.started">Inicio</div>
+          </div>
+          <div class="edu-info">
+            <h3 data-i18n="edu.master.title">Máster Universitario en Ingeniería Industrial</h3>
+            <div class="degree" data-i18n="edu.master.degree">Máster en Ingeniería Industrial</div>
+            <div class="institution" data-i18n="edu.master.institution">Universitat Politècnica de València · Valencia, España</div>
+            <div class="edu-status">
+              <span class="pulse-dot"></span>
+              <span data-i18n="edu.in-progress">En Curso</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="edu-card reveal reveal-delay-1">
+          <div class="edu-year-block">
+            <div class="edu-year">2024</div>
+            <div class="edu-year-label" data-i18n="edu.graduated">Graduada</div>
+          </div>
+          <div class="edu-info">
+            <h3 data-i18n="edu.bachelor.title">Grado en Ingeniería en Tecnologías Industriales</h3>
+            <div class="degree" data-i18n="edu.bachelor.degree">Grado en Ingeniería en Tecnologías Industriales</div>
+            <div class="institution" data-i18n="edu.bachelor.institution">Universitat Politècnica de València · Valencia, España · 2018 – 2024</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Awards & Certifications ──────────────────────────────────────────── -->
+  <section id="awards" aria-labelledby="awards-heading">
+    <div class="container">
+      <span class="label reveal" data-i18n="awards.label">Reconocimientos</span>
+      <h2 id="awards-heading" class="reveal reveal-delay-1"
+        style="font-size:clamp(2.2rem,4vw,3.2rem);margin-top:0.5rem;"
+        data-i18n-html="awards.h2">
+        Premios y <em>Honores</em>
+      </h2>
+
+      <div class="awards-grid">
+        <div class="award-card reveal reveal-delay-1">
+          <div class="award-icon">🏆</div>
+          <h3 data-i18n="awards.a1.title">Premio Nacional de Innovación</h3>
+          <div class="awarder" data-i18n="awards.a1.awarder">Fundación FASE · 2018</div>
+          <p class="summary" data-i18n="awards.a1.summary">Premio Nacional de Innovación otorgado por la Fundación FASE en reconocimiento a una contribución innovadora destacada.</p>
+        </div>
+        <div class="award-card reveal reveal-delay-2">
+          <div class="award-icon">🎖️</div>
+          <h3 data-i18n="awards.a2.title">Matrícula de Honor — Tecnologías Avanzadas de CAD</h3>
+          <div class="awarder" data-i18n="awards.a2.awarder">Universitat Politècnica de València</div>
+          <p class="summary" data-i18n="awards.a2.summary">Máxima distinción académica obtenida en la asignatura Tecnologías Avanzadas de Diseño Asistido por Ordenador del Máster, reconociendo un rendimiento excepcional en diseño asistido por ordenador.</p>
+        </div>
+      </div>
+
+      <div class="certs-strip reveal">
+        <span class="label" data-i18n="certs.label">Certificaciones</span>
+        <div class="certs-row">
+          <div class="cert-pill">
+            <span class="cert-pill-icon">📊</span>
+            <span data-i18n="cert.1">Excel: Fundamentos y Herramientas</span>
+            <span class="cert-date">Jul – Sep 2022</span>
+          </div>
+          <div class="cert-pill">
+            <span class="cert-pill-icon">📊</span>
+            <span data-i18n="cert.2">Excel: Gestión de Datos</span>
+            <span class="cert-date">Ene – Mar 2023</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Languages ────────────────────────────────────────────────────────── -->
+  <section id="languages" aria-labelledby="languages-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="label reveal" data-i18n="lang.label">Comunicación</span>
+        <h2 id="languages-heading" class="reveal reveal-delay-1" data-i18n="lang.h2">Idiomas</h2>
+      </div>
+      <div class="lang-grid">
+        <div class="lang-card reveal">
+          <div class="lang-flag">🇪🇸</div>
+          <h3 data-i18n="lang.es">Español</h3>
+          <div class="lang-level" data-i18n="lang.es.level">Nativo</div>
+          <div class="lang-bar-track"><div class="lang-bar-fill" data-width="1"></div></div>
+        </div>
+        <div class="lang-card reveal reveal-delay-1">
+          <div class="lang-flag">🏳️</div>
+          <h3 data-i18n="lang.va">Valenciano</h3>
+          <div class="lang-level" data-i18n="lang.va.level">C1 — Avanzado</div>
+          <div class="lang-bar-track"><div class="lang-bar-fill" data-width="0.85"></div></div>
+        </div>
+        <div class="lang-card reveal reveal-delay-2">
+          <div class="lang-flag">🇬🇧</div>
+          <h3 data-i18n="lang.en">Inglés</h3>
+          <div class="lang-level" data-i18n="lang.en.level">B2 — Intermedio Alto</div>
+          <div class="lang-bar-track"><div class="lang-bar-fill" data-width="0.65"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Contact ──────────────────────────────────────────────────────────── -->
+  <section id="contact" aria-labelledby="contact-heading">
+    <div class="container">
+      <div class="contact-inner">
+        <span class="label reveal" style="display:block;margin-bottom:0.75rem;" data-i18n="contact.label">Contacto</span>
+        <h2 id="contact-heading" class="reveal reveal-delay-1" data-i18n-html="contact.h2">
+          <em>Conectemos</em>
+        </h2>
+        <p class="reveal reveal-delay-2" data-i18n="contact.p">
+          Actualmente estoy abierta a oportunidades de prácticas, puestos de graduada y proyectos colaborativos en ingeniería industrial, sistemas de calidad o diseño CAD. No dudes en ponerte en contacto.
+        </p>
+        <div class="contact-links reveal reveal-delay-3">
+          <a href="mailto:anabesasanchis@gmail.com" class="contact-link primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span data-i18n="contact.btn.email">Escríbeme</span>
+          </a>
+          <a href="https://www.linkedin.com/in/ana-besa-sanchis" target="_blank" rel="noopener noreferrer" class="contact-link outline">LinkedIn</a>
+          <a href="tel:+34659535452" class="contact-link outline">(+34) 659 535 452</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ───────────────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <p data-i18n-html="footer.text">© 2025 <span>Ana Besa Sanchis</span> · Ingeniera Industrial · Valencia, España</p>
+    </div>
+  </footer>
+
+  <!-- ── Scripts ──────────────────────────────────────────────────────────── -->
+  <script>
+    /* ─── Translation Strings ───────────────────────────────────────────── */
+    const TRANSLATIONS = {
+      es: {
+        // Nav
+        'nav.about': 'Sobre Mí', 'nav.experience': 'Experiencia',
+        'nav.projects': 'Proyectos',
+        'nav.skills': 'Habilidades', 'nav.education': 'Formación',
+        'nav.awards': 'Premios', 'nav.contact': 'Contacto',
+        // Hero
+        'hero.label': 'Ingeniera Industrial · Valencia, España',
+        'hero.h1': 'Ana<br /><em>Besa</em><br />Sanchis',
+        'hero.p': 'Candidata al Máster en Ingeniería Industrial en la UPV, con experiencia práctica en gestión de calidad, estandarización de procesos y diseño CAD de precisión. Apasionada por la intersección entre el rigor técnico y la práctica industrial sostenible.',
+        'hero.btn.primary': 'Ver Mi Trabajo',
+        'hero.stat.study': 'Años de Estudio', 'hero.stat.exp': 'Exp. Industrial',
+        'hero.stat.lang': 'Idiomas', 'hero.stat.awards': 'Premios',
+        // About
+        'about.label': 'Quién Soy',
+        'about.h2': 'Ingeniería con <em>propósito</em> y precisión',
+        'about.tag1': 'Gestión de Calidad', 'about.tag2': 'Diseño CAD',
+        'about.tag3': 'Ing. de Procesos', 'about.tag4': 'Elaboración de SOPs',
+        'about.tag5': 'Análisis de Datos',
+        'about.p1': 'Soy estudiante de último curso del <strong>Máster en Ingeniería Industrial</strong> en la Universitat Politècnica de València — una de las principales universidades técnicas de España. Mi trayectoria académica, de más de seis años, me ha proporcionado una sólida base en procesos industriales, sistemas mecánicos y toma de decisiones basada en datos.',
+        'about.quote': '"La precisión en el proceso es el motor silencioso que impulsa la calidad sostenible."',
+        'about.p2': 'Durante mis prácticas en <strong>Hofmann</strong>, contribuí directamente al sistema de aseguramiento de la calidad — redactando SOPs, dirigiendo auditorías sistémicas de planta y coordinando la armonización de productos con subsidiarias internacionales. Esta experiencia me enseñó cómo la <strong>documentación rigurosa y la estandarización</strong> se traducen en resiliencia operacional real.',
+        'about.p3': 'Más allá de la práctica ingenieril, aporto sólidas habilidades de modelado 3D en <strong>SolidWorks, AutoCAD y Blender</strong>, un enfoque metódico para el análisis de datos y una mentalidad colaborativa y orientada a soluciones, forjada durante años de trabajo académico en equipo. Me desenvuelvo bien en entornos que valoran tanto la profundidad técnica como la resolución creativa de problemas.',
+        // Projects
+        'projects.label': 'Investigación Académica',
+        'projects.h2': 'Trabajo <em>Final</em> de Grado',
+        'projects.badge': 'Trabajo Fin de Grado · UPV · 2024',
+        'projects.p1.title': 'Modelado y Análisis de una Línea Robotizada para la Producción de Álbumes Fotográficos',
+        'projects.p1.subtitle': 'RobotStudio · ABB · Simulación Industrial',
+        'projects.p1.desc': 'Desarrollo de un modelo virtual de una línea de producción en RobotStudio para comparar la eficiencia de una línea semimanual frente a una automatizada con robot industrial ABB. Se analizaron dos escenarios en términos de tiempo de ciclo y coste de producción, demostrando la viabilidad técnica y económica de la automatización a medio plazo.',
+        'projects.p1.tag1': 'Robótica Industrial', 'projects.p1.tag2': 'Automatización',
+        'projects.p1.tag3': 'Simulación de Procesos', 'projects.p1.tag4': 'Análisis Coste-Beneficio',
+        'projects.p1.meta': 'Universitat Politècnica de València · 2024',
+        'projects.p1.cta': 'Leer el Trabajo',
+        // Experience
+        'exp.label': 'Carrera', 'exp.h2': 'Experiencia <em>Profesional</em>',
+        'exp.position': 'Prácticas — Analista de Calidad',
+        'exp.period': 'Oct 2023 — Ago 2024 · 10 meses',
+        'exp.tag': 'Aseguramiento de Calidad',
+        'exp.li1': '<strong>Redacción y mantenimiento de Procedimientos Operativos Estándar (SOPs)</strong> para el lanzamiento de nuevos productos, reduciendo tiempos de incorporación y garantizando el cumplimiento normativo en las líneas de producción.',
+        'exp.li2': '<strong>Liderazgo de la armonización de productos entre empresas del grupo</strong>, coordinando con subsidiarias internacionales para mejorar la coherencia de los estándares de calidad en toda la cartera.',
+        'exp.li3': 'Desarrollo integral de <strong>documentación para nuevos proyectos</strong>, desde borradores iniciales hasta la aprobación final, optimizando los ciclos de revisión.',
+        'exp.li4': '<strong>Gestión y actualización del muestrario de calidad</strong>, garantizando la trazabilidad completa del producto y la disponibilidad para auditorías en todo momento.',
+        'exp.li5': 'Planificación y ejecución de <strong>auditorías sistémicas de planta</strong>, identificando desviaciones en los procesos e impulsando acciones correctivas para fortalecer el sistema de gestión de calidad.',
+        // Skills
+        'skills.label': 'Conocimientos', 'skills.h2': 'Habilidades <em>Principales</em>',
+        'skills.cat1': 'Gestión de Calidad',
+        'skills.cat1.k1': 'Sistemas de Calidad', 'skills.cat1.k2': 'Control Documental',
+        'skills.cat1.k3': 'Elaboración de SOPs', 'skills.cat1.k4': 'Estandarización',
+        'skills.cat1.k5': 'Auditorías de Planta',
+        'skills.cat2': 'Ingeniería y Diseño CAD', 'skills.cat2.k5': 'Modelado 3D',
+        'skills.cat3': 'Análisis de Datos',
+        'skills.cat3.k2': 'Excel (Avanzado)', 'skills.cat3.k3': 'Visualización de Datos',
+        'skills.cat3.k4': 'Informes',
+        'skills.cat4': 'Habilidades Profesionales',
+        'skills.cat4.k1': 'Resolución de Problemas', 'skills.cat4.k2': 'Trabajo en Equipo',
+        'skills.cat4.k3': 'Organización', 'skills.cat4.k4': 'Responsabilidad',
+        'skills.cat4.k5': 'Adaptabilidad',
+        // Education
+        'edu.label': 'Formación Académica', 'edu.h2': '<em>Educación</em>',
+        'edu.started': 'Inicio', 'edu.graduated': 'Graduada', 'edu.in-progress': 'En Curso',
+        'edu.master.title': 'Máster Universitario en Ingeniería Industrial',
+        'edu.master.degree': 'Máster en Ingeniería Industrial',
+        'edu.master.institution': 'Universitat Politècnica de València · Valencia, España',
+        'edu.bachelor.title': 'Grado en Ingeniería en Tecnologías Industriales',
+        'edu.bachelor.degree': 'Grado en Ingeniería en Tecnologías Industriales',
+        'edu.bachelor.institution': 'Universitat Politècnica de València · Valencia, España · 2018 – 2024',
+        // Awards
+        'awards.label': 'Reconocimientos', 'awards.h2': 'Premios y <em>Honores</em>',
+        'awards.a1.title': 'Premio Nacional de Innovación',
+        'awards.a1.awarder': 'Fundación FASE · 2018',
+        'awards.a1.summary': 'Premio Nacional de Innovación otorgado por la Fundación FASE en reconocimiento a una contribución innovadora destacada.',
+        'awards.a2.title': 'Matrícula de Honor — Tecnologías Avanzadas de CAD',
+        'awards.a2.awarder': 'Universitat Politècnica de València',
+        'awards.a2.summary': 'Máxima distinción académica obtenida en la asignatura Tecnologías Avanzadas de Diseño Asistido por Ordenador del Máster, reconociendo un rendimiento excepcional en diseño asistido por ordenador.',
+        'certs.label': 'Certificaciones',
+        'cert.1': 'Excel: Fundamentos y Herramientas', 'cert.2': 'Excel: Gestión de Datos',
+        // Languages
+        'lang.label': 'Comunicación', 'lang.h2': 'Idiomas',
+        'lang.es': 'Español', 'lang.es.level': 'Nativo',
+        'lang.va': 'Valenciano', 'lang.va.level': 'C1 — Avanzado',
+        'lang.en': 'Inglés', 'lang.en.level': 'B2 — Intermedio Alto',
+        // Contact
+        'contact.label': 'Contacto', 'contact.h2': '<em>Conectemos</em>',
+        'contact.p': 'Actualmente estoy abierta a oportunidades de prácticas, puestos de graduada y proyectos colaborativos en ingeniería industrial, sistemas de calidad o diseño CAD. No dudes en ponerte en contacto.',
+        'contact.btn.email': 'Escríbeme',
+        // Footer & meta
+        'footer.text': '© 2025 <span>Ana Besa Sanchis</span> · Ingeniera Industrial · Valencia, España',
+        '_title': 'Ana Besa Sanchis — Ingeniera Industrial',
+        '_desc': 'Portfolio de Ana Besa Sanchis — Ingeniera en Tecnologías Industriales especializada en gestión de calidad, diseño CAD y procesos industriales.',
+      },
+      en: {
+        // Nav
+        'nav.about': 'About', 'nav.experience': 'Experience',
+        'nav.projects': 'Projects',
+        'nav.skills': 'Skills', 'nav.education': 'Education',
+        'nav.awards': 'Awards', 'nav.contact': 'Contact',
+        // Hero
+        'hero.label': 'Industrial Engineer · Valencia, Spain',
+        'hero.h1': 'Ana<br /><em>Besa</em><br />Sanchis',
+        'hero.p': "Master's candidate in Industrial Engineering at UPV, with hands-on experience in quality management, process standardisation, and precision CAD design. Passionate about the intersection of engineering rigour and sustainable industrial practice.",
+        'hero.btn.primary': 'View My Work',
+        'hero.stat.study': 'Years of Study', 'hero.stat.exp': 'Industry Exp.',
+        'hero.stat.lang': 'Languages', 'hero.stat.awards': 'Awards',
+        // About
+        'about.label': 'Who I Am',
+        'about.h2': 'Engineering with <em>purpose</em> & precision',
+        'about.tag1': 'Quality Management', 'about.tag2': 'CAD Design',
+        'about.tag3': 'Process Eng.', 'about.tag4': 'SOP Development',
+        'about.tag5': 'Data Analysis',
+        'about.p1': "I am a <strong>final-year Master's student in Industrial Engineering</strong> at the Universitat Politècnica de València — one of Spain's leading technical universities. My academic journey, spanning over six years, has grounded me in the fundamentals of industrial processes, mechanical systems, and data-driven decision making.",
+        'about.quote': '"Precision in process is the quiet engine that drives sustainable quality."',
+        'about.p2': "During my internship at <strong>Hofmann</strong>, I contributed directly to the company's quality assurance framework — authoring SOPs, leading systematic plant audits, and coordinating cross-group product harmonisation across international subsidiaries. This experience taught me how <strong>rigorous documentation and standardisation</strong> translate into real operational resilience.",
+        'about.p3': "Beyond engineering practice, I bring strong 3D modelling skills across <strong>SolidWorks, AutoCAD, and Blender</strong>, a methodical approach to data analysis, and a collaborative, solution-oriented mindset shaped by years of academic teamwork. I thrive in environments that value both technical depth and creative problem-solving.",
+        // Projects
+        'projects.label': 'Academic Research',
+        'projects.h2': 'Final <em>Degree</em> Project',
+        'projects.badge': "Bachelor's Thesis · UPV · 2024",
+        'projects.p1.title': 'Modelling and Analysis of a Robotic Production Line for Photo Album Manufacturing',
+        'projects.p1.subtitle': 'RobotStudio · ABB · Industrial Simulation',
+        'projects.p1.desc': 'Developed a virtual model of a photo album production line in RobotStudio to compare the efficiency of a semi-manual line against an ABB robot-automated alternative. Two scenarios were evaluated on cycle time and production cost, demonstrating the technical feasibility and medium-term cost-effectiveness of automation.',
+        'projects.p1.tag1': 'Industrial Robotics', 'projects.p1.tag2': 'Automation',
+        'projects.p1.tag3': 'Process Simulation', 'projects.p1.tag4': 'Cost-Benefit Analysis',
+        'projects.p1.meta': 'Universitat Politècnica de València · 2024',
+        'projects.p1.cta': 'Read the Paper',
+        // Experience
+        'exp.label': 'Career', 'exp.h2': 'Professional <em>Experience</em>',
+        'exp.position': 'Quality Analyst Intern',
+        'exp.period': 'Oct 2023 — Aug 2024 · 10 months',
+        'exp.tag': 'Quality Assurance',
+        'exp.li1': '<strong>Authored and maintained Standard Operating Procedures (SOPs)</strong> for new product launches, reducing onboarding time and ensuring regulatory compliance across production lines.',
+        'exp.li2': '<strong>Spearheaded cross-group product harmonisation</strong> in coordination with international subsidiaries, improving consistency in quality standards across the group portfolio.',
+        'exp.li3': 'Led end-to-end <strong>documentary development for new projects</strong>, from initial specification drafts to final approval, streamlining review cycles.',
+        'exp.li4': '<strong>Managed and updated the quality sample repository</strong>, ensuring full product traceability and supporting audit readiness at all times.',
+        'exp.li5': 'Planned and executed <strong>systematic plant audits</strong>, identifying process deviations and driving targeted corrective actions to strengthen the quality management system.',
+        // Skills
+        'skills.label': 'Expertise', 'skills.h2': 'Core <em>Skills</em>',
+        'skills.cat1': 'Quality Management',
+        'skills.cat1.k1': 'Quality Systems', 'skills.cat1.k2': 'Document Control',
+        'skills.cat1.k3': 'SOP Authoring', 'skills.cat1.k4': 'Standardisation',
+        'skills.cat1.k5': 'Plant Audits',
+        'skills.cat2': 'Engineering & CAD Design', 'skills.cat2.k5': '3D Modelling',
+        'skills.cat3': 'Data Analysis',
+        'skills.cat3.k2': 'Excel (Advanced)', 'skills.cat3.k3': 'Data Visualisation',
+        'skills.cat3.k4': 'Reporting',
+        'skills.cat4': 'Professional Skills',
+        'skills.cat4.k1': 'Problem Solving', 'skills.cat4.k2': 'Teamwork',
+        'skills.cat4.k3': 'Organisation', 'skills.cat4.k4': 'Responsibility',
+        'skills.cat4.k5': 'Adaptability',
+        // Education
+        'edu.label': 'Academic Background', 'edu.h2': '<em>Education</em>',
+        'edu.started': 'Started', 'edu.graduated': 'Graduated', 'edu.in-progress': 'In Progress',
+        'edu.master.title': 'Máster Universitario en Ingeniería Industrial',
+        'edu.master.degree': 'Master of Science in Industrial Engineering',
+        'edu.master.institution': 'Universitat Politècnica de València · Valencia, Spain',
+        'edu.bachelor.title': 'Grado en Ingeniería en Tecnologías Industriales',
+        'edu.bachelor.degree': 'B.Eng. in Industrial Technologies Engineering',
+        'edu.bachelor.institution': 'Universitat Politècnica de València · Valencia, Spain · 2018 – 2024',
+        // Awards
+        'awards.label': 'Recognition', 'awards.h2': 'Awards & <em>Honours</em>',
+        'awards.a1.title': 'Premio Nacional de Innovación',
+        'awards.a1.awarder': 'Fundación FASE · 2018',
+        'awards.a1.summary': 'National Innovation Prize awarded by Fundación FASE in recognition of outstanding innovative contribution.',
+        'awards.a2.title': 'Matrícula de Honor — Advanced CAD Technologies',
+        'awards.a2.awarder': 'Universitat Politècnica de València',
+        'awards.a2.summary': "Highest academic distinction awarded in the Master's subject Tecnologías Avanzadas de Diseño Asistido por Ordenador, recognising exceptional performance in computer-aided design.",
+        'certs.label': 'Certifications',
+        'cert.1': 'Excel: Fundamentals & Tools', 'cert.2': 'Excel: Data Management',
+        // Languages
+        'lang.label': 'Communication', 'lang.h2': 'Languages',
+        'lang.es': 'Spanish', 'lang.es.level': 'Native',
+        'lang.va': 'Valencian', 'lang.va.level': 'C1 — Advanced',
+        'lang.en': 'English', 'lang.en.level': 'B2 — Upper Intermediate',
+        // Contact
+        'contact.label': 'Get in Touch', 'contact.h2': "Let's <em>connect</em>",
+        'contact.p': "I'm currently open to internship opportunities, graduate roles, and collaborative projects in industrial engineering, quality systems, or CAD design. Don't hesitate to reach out.",
+        'contact.btn.email': 'Email Me',
+        // Footer & meta
+        'footer.text': '© 2025 <span>Ana Besa Sanchis</span> · Industrial Engineer · Valencia, Spain',
+        '_title': 'Ana Besa Sanchis — Industrial Engineer',
+        '_desc': 'Portfolio of Ana Besa Sanchis — Industrial Technologies Engineer specialising in quality management, CAD design, and industrial processes.',
+      }
+    };
+
+    /* ─── i18n Engine ───────────────────────────────────────────────────── */
+    let currentLang = 'es';
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      const t = TRANSLATIONS[lang];
+
+      // Update <html lang> and page meta
+      document.documentElement.lang = lang;
+      document.title = t['_title'];
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) { metaDesc.setAttribute('content', t['_desc']); }
+
+      // Plain-text translations (safe — uses textContent)
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const val = t[el.dataset.i18n];
+        if (val !== undefined) { el.textContent = val; }
+      });
+
+      // HTML translations (controlled strings only — uses innerHTML)
+      document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+        const val = t[el.dataset.i18nHtml];
+        if (val !== undefined) { el.innerHTML = val; }
+      });
+
+      // Update toggle active state
+      document.querySelectorAll('.lang-opt').forEach((opt) => {
+        opt.classList.toggle('active', opt.dataset.lang === lang);
+      });
+    }
+
+    /* ─── Navbar scroll effect ──────────────────────────────────────────── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    /* ─── Mobile drawer ─────────────────────────────────────────────────── */
+    const hamburger   = document.getElementById('hamburger');
+    const navDrawer   = document.getElementById('navDrawer');
+    const drawerClose = document.getElementById('drawerClose');
+
+    hamburger.addEventListener('click', () => {
+      navDrawer.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+    drawerClose.addEventListener('click', closeDrawer);
+
+    function closeDrawer() {
+      navDrawer.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    /* ─── Language toggle click ─────────────────────────────────────────── */
+    document.getElementById('langToggle').addEventListener('click', () => {
+      applyLanguage(currentLang === 'es' ? 'en' : 'es');
+    });
+
+    /* ─── Scroll reveal ─────────────────────────────────────────────────── */
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+    /* ─── Language bar animation ────────────────────────────────────────── */
+    const barObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const fill = entry.target;
+            fill.style.transform = `scaleX(${parseFloat(fill.dataset.width)})`;
+            barObserver.unobserve(fill);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    document.querySelectorAll('.lang-bar-fill').forEach((bar) => barObserver.observe(bar));
+
+    /* ─── Boot in Spanish ───────────────────────────────────────────────── */
+    applyLanguage('es');
+  </script>
+
+</body>
+</html>
