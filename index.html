@@ -784,16 +784,6 @@
     .lang-flag { font-size: 2.5rem; margin-bottom: 0.75rem; }
     .lang-card h3 { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 0.4rem; }
     .lang-level { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--clr-primary); }
-    .lang-bar-track {
-      margin-top: 1rem; height: 4px;
-      border-radius: 9999px; background: var(--clr-border); overflow: hidden;
-    }
-    .lang-bar-fill {
-      height: 100%; border-radius: 9999px;
-      background: linear-gradient(90deg, var(--clr-primary), var(--clr-interactive));
-      transform-origin: left; transform: scaleX(0);
-      transition: transform 1s ease-out;
-    }
 
     /* ─── Contact ───────────────────────────────────────────────────────── */
     #contact { background: var(--clr-card-alt); padding-block: 6rem; text-align: center; }
@@ -1032,12 +1022,49 @@
     <div class="container">
       <div class="section-header">
         <span class="label reveal" data-i18n="projects.label">Investigación Académica</span>
-        <h2 id="projects-heading" class="reveal reveal-delay-1" data-i18n-html="projects.h2">Trabajo <em>Final</em> de Grado</h2>
+        <h2 id="projects-heading" class="reveal reveal-delay-1" data-i18n-html="projects.h2">Proyectos <em>Académicos</em></h2>
       </div>
 
       <div class="project-card reveal">
         <div class="project-visual">
-          <span class="project-badge" data-i18n="projects.badge">Trabajo Fin de Grado · UPV · 2024</span>
+          <span class="project-badge" data-i18n="projects.p0.badge">Trabajo Fin de Máster · UPV · 2026</span>
+          <div class="project-visual-icon" aria-hidden="true">
+            <!-- Robot vacuum / leaf (ecodesign) icon -->
+            <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="42" r="24"/>
+              <circle cx="40" cy="22" r="3"/>
+              <path d="M40 50 C 34 50 30 46 30 40 C 36 40 40 44 40 50 Z"/>
+              <path d="M40 50 C 46 50 50 46 50 40 C 44 40 40 44 40 50 Z"/>
+              <line x1="40" y1="50" x2="40" y2="58"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="project-body">
+          <div>
+            <h3 data-i18n="projects.p0.title">Análisis Ambiental y Rediseño Ecológico de un Aspirador Robótico Doméstico</h3>
+            <div class="project-subtitle" data-i18n="projects.p0.subtitle">ACV · Ecodiseño · Reglamento ESPR</div>
+            <p data-i18n="projects.p0.desc">
+              Análisis ambiental y rediseño ecológico de un aspirador robótico doméstico, seleccionado por su alta relevancia dentro de la categoría de pequeños electrodomésticos. El trabajo combina un estudio de desensamblaje con un Análisis de Ciclo de Vida (ACV) para identificar los principales impactos ambientales del producto, alineándose con las exigencias del nuevo Reglamento de Ecodiseño para Productos Sostenibles (ESPR) en materia de durabilidad, reparabilidad, reciclabilidad y trazabilidad mediante el Pasaporte Digital de Producto (DPP). A partir de estos resultados se definen criterios de ecodiseño, se comparan alternativas y se desarrolla la solución final a nivel de diseño de detalle, incluyendo selección de materiales, procesos de fabricación y estrategias de desmontaje.
+            </p>
+          </div>
+
+          <div class="project-tags">
+            <span class="project-tag" data-i18n="projects.p0.tag1">Ecodiseño</span>
+            <span class="project-tag" data-i18n="projects.p0.tag2">Análisis de Ciclo de Vida</span>
+            <span class="project-tag" data-i18n="projects.p0.tag3">Reglamento ESPR</span>
+            <span class="project-tag" data-i18n="projects.p0.tag4">Pasaporte Digital de Producto</span>
+          </div>
+
+          <div class="project-footer">
+            <span class="project-meta" data-i18n="projects.p0.meta">Universitat Politècnica de València · 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-visual">
+          <span class="project-badge" data-i18n="projects.p1.badge">Trabajo Fin de Grado · UPV · 2024</span>
           <div class="project-visual-icon" aria-hidden="true">
             <!-- Robot arm icon -->
             <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
@@ -1252,19 +1279,16 @@
           <div class="lang-flag">🇪🇸</div>
           <h3 data-i18n="lang.es">Español</h3>
           <div class="lang-level" data-i18n="lang.es.level">Nativo</div>
-          <div class="lang-bar-track"><div class="lang-bar-fill" data-width="1"></div></div>
         </div>
         <div class="lang-card reveal reveal-delay-1">
-          <div class="lang-flag">ᴠʟᴄᴀ</div>
-          <h3 data-i18n="lang.va">Valenciano</h3>
-          <div class="lang-level" data-i18n="lang.va.level">C1 — Avanzado</div>
-          <div class="lang-bar-track"><div class="lang-bar-fill" data-width="0.85"></div></div>
+          <div class="lang-flag">ᴄᴀᴛ</div>
+          <h3 data-i18n="lang.va">Catalán</h3>
+          <div class="lang-level" data-i18n="lang.va.level">Nativo</div>
         </div>
         <div class="lang-card reveal reveal-delay-2">
           <div class="lang-flag">🇬🇧</div>
           <h3 data-i18n="lang.en">Inglés</h3>
-          <div class="lang-level" data-i18n="lang.en.level">B2 — Intermedio Alto</div>
-          <div class="lang-bar-track"><div class="lang-bar-fill" data-width="0.65"></div></div>
+          <div class="lang-level" data-i18n="lang.en.level">Competencia profesional completa</div>
         </div>
       </div>
     </div>
@@ -1329,8 +1353,15 @@
         'about.p3': 'Más allá de la práctica ingenieril, aporto sólidas habilidades de modelado 3D en <strong>SolidWorks, AutoCAD y Blender</strong>, forjadas durante años de trabajo académico en equipo. Me desenvuelvo bien en entornos que valoran tanto la profundidad técnica como la resolución creativa de problemas.',
         // Projects
         'projects.label': 'Investigación Académica',
-        'projects.h2': 'Trabajo <em>Final</em> de Grado',
-        'projects.badge': 'Trabajo Fin de Grado · UPV · 2024',
+        'projects.h2': 'Proyectos <em>Académicos</em>',
+        'projects.p0.badge': 'Trabajo Fin de Máster · UPV · 2026',
+        'projects.p0.title': 'Análisis Ambiental y Rediseño Ecológico de un Aspirador Robótico Doméstico',
+        'projects.p0.subtitle': 'ACV · Ecodiseño · Reglamento ESPR',
+        'projects.p0.desc': 'Análisis ambiental y rediseño ecológico de un aspirador robótico doméstico, seleccionado por su alta relevancia dentro de la categoría de pequeños electrodomésticos. El trabajo combina un estudio de desensamblaje con un Análisis de Ciclo de Vida (ACV) para identificar los principales impactos ambientales del producto, alineándose con las exigencias del nuevo Reglamento de Ecodiseño para Productos Sostenibles (ESPR) en materia de durabilidad, reparabilidad, reciclabilidad y trazabilidad mediante el Pasaporte Digital de Producto (DPP). A partir de estos resultados se definen criterios de ecodiseño, se comparan alternativas y se desarrolla la solución final a nivel de diseño de detalle, incluyendo selección de materiales, procesos de fabricación y estrategias de desmontaje.',
+        'projects.p0.tag1': 'Ecodiseño', 'projects.p0.tag2': 'Análisis de Ciclo de Vida',
+        'projects.p0.tag3': 'Reglamento ESPR', 'projects.p0.tag4': 'Pasaporte Digital de Producto',
+        'projects.p0.meta': 'Universitat Politècnica de València · 2026',
+        'projects.p1.badge': 'Trabajo Fin de Grado · UPV · 2024',
         'projects.p1.title': 'Modelado y Análisis de una Línea Robotizada para la Producción de Álbumes Fotográficos',
         'projects.p1.subtitle': 'RobotStudio · ABB · Simulación Industrial',
         'projects.p1.desc': 'Desarrollo de un modelo virtual de una línea de producción en RobotStudio para comparar la eficiencia de una línea semimanual frente a una automatizada con robot industrial ABB. Se analizaron dos escenarios en términos de tiempo de ciclo y coste de producción, demostrando la viabilidad técnica y económica de la automatización a medio plazo.',
@@ -1382,8 +1413,8 @@
         // Languages
         'lang.label': 'Comunicación', 'lang.h2': 'Idiomas',
         'lang.es': 'Español', 'lang.es.level': 'Nativo',
-        'lang.va': 'Valenciano', 'lang.va.level': 'C1 — Avanzado',
-        'lang.en': 'Inglés', 'lang.en.level': 'B2 — Intermedio Alto',
+        'lang.va': 'Catalán', 'lang.va.level': 'Nativo',
+        'lang.en': 'Inglés', 'lang.en.level': 'Competencia profesional completa',
         // Contact
         'contact.label': 'Contacto', 'contact.h2': '<em>Conectemos</em>',
         'contact.p': 'Actualmente estoy abierta a oportunidades de prácticas, puestos de graduada y proyectos colaborativos en ingeniería industrial, sistemas de calidad o diseño CAD. No dudes en ponerte en contacto.',
@@ -1418,8 +1449,15 @@
         'about.p3': "Beyond engineering practice, I bring strong 3D modelling skills across <strong>SolidWorks, AutoCAD, and Blender</strong>, shaped by years of academic teamwork. I thrive in environments that value both technical depth and creative problem-solving.",
         // Projects
         'projects.label': 'Academic Research',
-        'projects.h2': 'Final <em>Degree</em> Project',
-        'projects.badge': "Bachelor's Thesis · UPV · 2024",
+        'projects.h2': 'Academic <em>Projects</em>',
+        'projects.p0.badge': "Master's Thesis · UPV · 2026",
+        'projects.p0.title': 'Environmental Analysis and Ecodesign Redesign of a Domestic Robotic Vacuum Cleaner',
+        'projects.p0.subtitle': 'LCA · Ecodesign · ESPR Regulation',
+        'projects.p0.desc': "Environmental analysis and ecodesign redesign of a domestic robotic vacuum cleaner, selected for its high relevance within the small household appliances category. The project combines a disassembly study with a Life Cycle Assessment (LCA) to identify the product's main environmental impacts, aligning with the new Ecodesign for Sustainable Products Regulation (ESPR) requirements on durability, reparability, recyclability, and traceability through the Digital Product Passport (DPP). Building on these results, ecodesign criteria are defined, alternatives are compared, and the final solution is developed at a detailed design level, including material selection, manufacturing processes, and disassembly strategy.",
+        'projects.p0.tag1': 'Ecodesign', 'projects.p0.tag2': 'Life Cycle Assessment',
+        'projects.p0.tag3': 'ESPR Regulation', 'projects.p0.tag4': 'Digital Product Passport',
+        'projects.p0.meta': 'Universitat Politècnica de València · 2026',
+        'projects.p1.badge': "Bachelor's Thesis · UPV · 2024",
         'projects.p1.title': 'Modelling and Analysis of a Robotic Production Line for Photo Album Manufacturing',
         'projects.p1.subtitle': 'RobotStudio · ABB · Industrial Simulation',
         'projects.p1.desc': 'Developed a virtual model of a photo album production line in RobotStudio to compare the efficiency of a semi-manual line against an ABB robot-automated alternative. Two scenarios were evaluated on cycle time and production cost, demonstrating the technical feasibility and medium-term cost-effectiveness of automation.',
@@ -1471,8 +1509,8 @@
         // Languages
         'lang.label': 'Communication', 'lang.h2': 'Languages',
         'lang.es': 'Spanish', 'lang.es.level': 'Native',
-        'lang.va': 'Valencian', 'lang.va.level': 'C1 — Advanced',
-        'lang.en': 'English', 'lang.en.level': 'B2 — Upper Intermediate',
+        'lang.va': 'Catalan', 'lang.va.level': 'Native',
+        'lang.en': 'English', 'lang.en.level': 'Full professional proficiency',
         // Contact
         'contact.label': 'Get in Touch', 'contact.h2': "Let's <em>connect</em>",
         'contact.p': "I'm currently open to internship opportunities, graduate roles, and collaborative projects in industrial engineering, quality systems, or CAD design. Don't hesitate to reach out.",
@@ -1555,21 +1593,6 @@
       { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     );
     document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
-
-    /* ─── Language bar animation ────────────────────────────────────────── */
-    const barObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const fill = entry.target;
-            fill.style.transform = `scaleX(${parseFloat(fill.dataset.width)})`;
-            barObserver.unobserve(fill);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-    document.querySelectorAll('.lang-bar-fill').forEach((bar) => barObserver.observe(bar));
 
     /* ─── Boot in Spanish ───────────────────────────────────────────────── */
     applyLanguage('es');
